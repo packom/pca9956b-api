@@ -1,0 +1,5 @@
+
+curl -v -X GET http://localhost:8080/pca9956b/api
+curl -v -X POST http://localhost:8080/pca9956b/32/reset
+curl -v -X POST http://localhost:8080/pca9956b/32/reset
+

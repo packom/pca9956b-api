@@ -1,0 +1,1926 @@
+openapi: 3.0.1
+info:
+  title: PCA9956B API
+  version: 0.1.1
+servers:
+- url: /
+paths:
+  /pca9956b/api:
+    get:
+      description: Returns this API specification
+      operationId: get_api
+      responses:
+        200:
+          content:
+            text/x-yaml:
+              schema:
+                $ref: '#/components/schemas/yaml'
+          description: OK
+        404:
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/apiError'
+          description: File not found
+  /pca9956b/{busId}/reset:
+    post:
+      description: Initiated a software reset. Resets all devices that response to the PCA9956B SWRST procedure on the I2C bus. Note that the device may take up to 1ms to reset
+      operationId: reset
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/config:
+    get:
+      description: Gets global configuration on the addressed PCA9956B
+      operationId: get_config
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/config'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+    post:
+      description: Sets global configuration on the addressed PCA9956B
+      operationId: set_config
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/config'
+        description: Values to write
+        required: true
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/sleep/{sleep}:
+    post:
+      description: Sets the sleep value
+      operationId: set_sleep
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Sleep value
+        explode: false
+        in: path
+        name: sleep
+        required: true
+        schema:
+          $ref: '#/components/schemas/sleep'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/sleep:
+    get:
+      description: Gets the sleep value
+      operationId: get_sleep
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sleep'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/offset/{offset}:
+    post:
+      description: Sets the offset value.  Offset to use between offset times for consecutive LEDs.  Specified offset in clock cycles (125ns).
+      operationId: set_offset
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Offset value
+        explode: false
+        in: path
+        name: offset
+        required: true
+        schema:
+          $ref: '#/components/schemas/offset'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/offset:
+    get:
+      description: Gets the offset value
+      operationId: get_offset
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offset'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/pwm/{pwm}:
+    post:
+      description: Sets the PWM value using the PWMALL register.  When in group dim mode this is overlaid over the per LED PWM value for all LEDs.  When in group blink mode this specifies the blink duty cycle (with frequency affecting period)
+      operationId: set_pwm
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: PWM value
+        explode: false
+        in: path
+        name: pwm
+        required: true
+        schema:
+          $ref: '#/components/schemas/pwm'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/pwm:
+    get:
+      description: Gets the PWM value
+      operationId: get_pwm
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pwm'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/current/{current}:
+    post:
+      description: Sets the current value using the IREFALL register.  When this register is written all per LED current values are set to this value
+      operationId: set_current
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Current value
+        explode: false
+        in: path
+        name: current
+        required: true
+        schema:
+          $ref: '#/components/schemas/current'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/current:
+    get:
+      description: Gets the current value from the IREFALL register
+      operationId: get_current
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/current'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/freq/{freq}:
+    post:
+      description: Sets the GRPFRQ value.  When in blink mode, affects blink period (with global pwm value affecting duty cycle), otherwise unused
+      operationId: set_freq
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Frequency value
+        explode: false
+        in: path
+        name: freq
+        required: true
+        schema:
+          $ref: '#/components/schemas/freq'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/freq:
+    get:
+      description: Gets the frequency value from the GRPFRW register
+      operationId: get_freq
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/freq'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/group/{group}:
+    post:
+      description: Sets the group mode (dim or blink)
+      operationId: set_group
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Group value
+        explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          $ref: '#/components/schemas/group'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/group:
+    get:
+      description: Gets the group control setting from the MODE1 register
+      operationId: get_group
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/group'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/outputChange/{outputChange}:
+    post:
+      description: Sets the output change mode (on STOP or ACK)
+      operationId: set_output_change
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Output change value
+        explode: false
+        in: path
+        name: outputChange
+        required: true
+        schema:
+          $ref: '#/components/schemas/outputChange'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/outputChange:
+    get:
+      description: Gets the output change mode from the MODE1 register
+      operationId: get_output_change
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/outputChange'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/overTemp:
+    get:
+      description: Returns whether there's an overtemperature error
+      operationId: get_over_temp
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/overTemp'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/error:
+    get:
+      description: Returns whether there's any LED errors
+      operationId: get_error
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/error/clear:
+    post:
+      description: Sets the clear LED error bit in the MODE1 register
+      operationId: clear_error
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/errors:
+    post:
+      description: Gets error status for all LEDs
+      operationId: get_errors
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ledErrors'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/addr/{num}/enabled/{enabled}:
+    post:
+      description: Sets whether this address is enabled
+      operationId: set_addr_enabled
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Address number (0=all call, 1-3=sub addrs)
+        explode: false
+        in: path
+        name: num
+        required: true
+        schema:
+          $ref: '#/components/schemas/addrIndex'
+        style: simple
+      - description: Whether to this address should be enabled
+        explode: false
+        in: path
+        name: enabled
+        required: true
+        schema:
+          $ref: '#/components/schemas/addrEnabled'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/addr/{num}/enabled:
+    get:
+      description: Gets whether this address is enabled
+      operationId: get_addr_enabled
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Address number (0=all call, 1-3=sub addrs)
+        explode: false
+        in: path
+        name: num
+        required: true
+        schema:
+          $ref: '#/components/schemas/addrIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addrEnabled'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/addr/{num}/addr/{addrVal}:
+    post:
+      description: Sets whether this address value - note that all call address can only be set when it is enabled
+      operationId: set_addr_value
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Address number (0=all call, 1-3=sub addrs)
+        explode: false
+        in: path
+        name: num
+        required: true
+        schema:
+          $ref: '#/components/schemas/addrIndex'
+        style: simple
+      - description: Value to set this address to
+        explode: false
+        in: path
+        name: addrVal
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/addr/{num}/addr:
+    get:
+      description: Gets value of this address
+      operationId: get_addr_value
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Address number (0=all call, 1-3=sub addrs)
+        explode: false
+        in: path
+        name: num
+        required: true
+        schema:
+          $ref: '#/components/schemas/addrIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addr'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/addr/{num}:
+    get:
+      description: Gets info about this address
+      operationId: get_addr_info
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: Address number (0=all call, 1-3=sub addrs)
+        explode: false
+        in: path
+        name: num
+        required: true
+        schema:
+          $ref: '#/components/schemas/addrIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addrInfo'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led:
+    get:
+      description: Gets properties for all LEDs
+      operationId: get_led_info_all
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ledInfoArray'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+    post:
+      description: Sets properties for 1 or more LEDs
+      operationId: set_led_info_all
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ledInfoArray'
+        description: Values to write
+        required: true
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}:
+    get:
+      description: Gets all properties for 1 LED
+      operationId: get_led_info
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ledInfo'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+    post:
+      description: Sets properties for 1 LED
+      operationId: set_led_info
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ledInfo'
+        description: Values to write
+        required: true
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/state/{state}:
+    post:
+      description: Sets LED state
+      operationId: set_led_state
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: state
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledState'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/state:
+    get:
+      description: Gets LED state
+      operationId: get_led_state
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ledState'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/pwm/{pwm}:
+    post:
+      description: Sets LED pwm
+      operationId: set_led_pwm
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: pwm
+        required: true
+        schema:
+          $ref: '#/components/schemas/pwm'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/pwm:
+    get:
+      description: Gets LED pwm
+      operationId: get_led_pwm
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pwm'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/current/{current}:
+    post:
+      description: Sets LED current
+      operationId: set_led_current
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: current
+        required: true
+        schema:
+          $ref: '#/components/schemas/current'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/current:
+    get:
+      description: Gets LED current
+      operationId: get_led_current
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/current'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/error/{error}:
+    post:
+      description: Sets LED error
+      operationId: set_led_error
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: error
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledError'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+  /pca9956b/{busId}/{addr}/led/{led}/error:
+    get:
+      description: Gets LED error
+      operationId: get_led_error
+      parameters:
+      - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
+        explode: false
+        in: path
+        name: busId
+        required: true
+        schema:
+          $ref: '#/components/schemas/busId'
+        style: simple
+      - description: Device address to perform operation on (may be a sub or all call address)
+        explode: false
+        in: path
+        name: addr
+        required: true
+        schema:
+          $ref: '#/components/schemas/addr'
+        style: simple
+      - description: LED to perform operation on
+        explode: false
+        in: path
+        name: led
+        required: true
+        schema:
+          $ref: '#/components/schemas/ledIndex'
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ledError'
+          description: OK
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequest'
+          description: Bad Request
+        502:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opError'
+          description: Operation Failed
+components:
+  schemas:
+    badRequest:
+      description: Client sent a bad request
+      properties:
+        parameter:
+          description: what parameter was at fault
+          type: string
+        error:
+          description: Error description
+          type: string
+    opError:
+      description: Operation as a whole failed.  It is possible that part of the operation succeeded so the device may be left in a bad state.  A reset may be in order
+      properties:
+        error:
+          description: Error description
+          type: string
+    config:
+      description: PCA9956B IC configuration
+      example:
+        sleep: true
+        current: 152
+        offset: 1
+        pwm: 20
+        freq: 153
+        addr:
+        - index: 1
+          addr: 30
+          enabled: true
+        - index: 1
+          addr: 30
+          enabled: true
+      properties:
+        sleep:
+          description: whether sleep is enabled (oscillator not running when sleep is enabled, and it takes >= 500us to bring the device out of sleep)
+          type: boolean
+        group:
+          $ref: '#/components/schemas/group'
+        outputChange:
+          $ref: '#/components/schemas/outputChange'
+        pwm:
+          description: PWM value, 0-255 inclusive
+          format: int32
+          maximum: 255
+          minimum: 0
+          type: integer
+        freq:
+          description: frequency multipier, 0-255 inclusive
+          format: int32
+          maximum: 255
+          minimum: 0
+          type: integer
+        offset:
+          description: offset value, number of (125ns) clock cycles between on times of consecutive LEDs
+          format: int32
+          maximum: 11
+          minimum: 0
+          type: integer
+        current:
+          description: current value
+          format: int32
+          maximum: 255
+          minimum: 0
+          type: integer
+        addr:
+          items:
+            $ref: '#/components/schemas/addrInfo'
+          type: array
+    ledInfoArray:
+      items:
+        $ref: '#/components/schemas/ledInfo'
+      type: array
+    ledInfo:
+      description: Information about a specific LED
+      example:
+        current: 37
+        pwm: 153
+        index: 1
+      properties:
+        index:
+          description: LED number
+          format: int32
+          maximum: 23
+          minimum: 0
+          type: integer
+        state:
+          $ref: '#/components/schemas/ledState'
+        pwm:
+          description: PWM value, 0-255 inclusive
+          format: int32
+          maximum: 255
+          minimum: 0
+          type: integer
+        current:
+          description: current value
+          format: int32
+          maximum: 255
+          minimum: 0
+          type: integer
+        error:
+          $ref: '#/components/schemas/ledError'
+    addrInfo:
+      description: Address information (used to configure sub/all call addresses)
+      example:
+        index: 1
+        addr: 30
+        enabled: true
+      properties:
+        index:
+          description: address identifier 0=all call, 1-3=sub addrs
+          format: int32
+          maximum: 3
+          minimum: 0
+          type: integer
+        enabled:
+          description: whether this address is enabled
+          type: boolean
+        addr:
+          description: address value
+          format: int32
+          maximum: 127
+          minimum: 1
+          type: integer
+    addrEnabled:
+      description: whether this address is enabled
+      type: boolean
+    busId:
+      description: A valid bus ID as returned by i2c_bus_list
+      format: int32
+      type: integer
+    addr:
+      description: address value
+      format: int32
+      maximum: 127
+      minimum: 1
+      type: integer
+    addrIndex:
+      description: address identifier 0=all call, 1-3=sub addrs
+      format: int32
+      maximum: 3
+      minimum: 0
+      type: integer
+    overTemp:
+      description: Whether there is an over-temperature error
+      type: boolean
+    sleep:
+      description: whether sleep is enabled (oscillator not running when sleep is enabled, and it takes >= 500us to bring the device out of sleep)
+      type: boolean
+    group:
+      description: whether config pwm/freq values control dimming or blinking
+      enum:
+      - dim
+      - blink
+      type: string
+    outputChange:
+      description: whether output changes on I2C STOP or ACK
+      enum:
+      - stop
+      - ack
+      type: string
+    pwm:
+      description: PWM value, 0-255 inclusive
+      format: int32
+      maximum: 255
+      minimum: 0
+      type: integer
+    freq:
+      description: frequency multipier, 0-255 inclusive
+      format: int32
+      maximum: 255
+      minimum: 0
+      type: integer
+    offset:
+      description: offset value, number of (125ns) clock cycles between on times of consecutive LEDs
+      format: int32
+      maximum: 11
+      minimum: 0
+      type: integer
+    current:
+      description: current value
+      format: int32
+      maximum: 255
+      minimum: 0
+      type: integer
+    ledIndex:
+      description: LED number
+      format: int32
+      maximum: 23
+      minimum: 0
+      type: integer
+    ledState:
+      description: LED state
+      enum:
+      - "false"
+      - "true"
+      - pwm
+      - pwmPlus
+      type: string
+    ledError:
+      description: LED error
+      enum:
+      - none
+      - short
+      - open
+      - dne
+      type: string
+    ledErrors:
+      items:
+        $ref: '#/components/schemas/addrInfo'
+      type: array
+    error:
+      description: Whether there are any LED errors
+      type: boolean
+    yaml:
+      description: A YAML file
+      type: string
+    apiError:
+      description: Some error text
+      type: string
+
