@@ -855,6 +855,135 @@ impl std::str::FromStr for LedError {
 }
 
 
+// Methods for converting between header::IntoHeaderValue<LedErrors> and hyper::header::HeaderValue
+
+#[cfg(any(feature = "client", feature = "server"))]
+impl std::convert::TryFrom<header::IntoHeaderValue<LedErrors>> for hyper::header::HeaderValue {
+    type Error = String;
+
+    fn try_from(hdr_value: header::IntoHeaderValue<LedErrors>) -> std::result::Result<Self, Self::Error> {
+        let hdr_value = hdr_value.to_string();
+        match hyper::header::HeaderValue::from_str(&hdr_value) {
+             std::result::Result::Ok(value) => std::result::Result::Ok(value),
+             std::result::Result::Err(e) => std::result::Result::Err(
+                 format!("Invalid header value for LedErrors - value: {} is invalid {}",
+                     hdr_value, e))
+        }
+    }
+}
+
+#[cfg(any(feature = "client", feature = "server"))]
+impl std::convert::TryFrom<hyper::header::HeaderValue> for header::IntoHeaderValue<LedErrors> {
+    type Error = String;
+
+    fn try_from(hdr_value: hyper::header::HeaderValue) -> std::result::Result<Self, Self::Error> {
+        match hdr_value.to_str() {
+             std::result::Result::Ok(value) => {
+                    match <LedErrors as std::str::FromStr>::from_str(value) {
+                        std::result::Result::Ok(value) => std::result::Result::Ok(header::IntoHeaderValue(value)),
+                        std::result::Result::Err(err) => std::result::Result::Err(
+                            format!("Unable to convert header value '{}' into LedErrors - {}",
+                                value, err))
+                    }
+             },
+             std::result::Result::Err(e) => std::result::Result::Err(
+                 format!("Unable to convert header: {:?} to string: {}",
+                     hdr_value, e))
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
+pub struct LedErrors(
+    Vec<AddrInfo>
+);
+
+impl std::convert::From<Vec<AddrInfo>> for LedErrors {
+    fn from(x: Vec<AddrInfo>) -> Self {
+        LedErrors(x)
+    }
+}
+
+impl std::convert::From<LedErrors> for Vec<AddrInfo> {
+    fn from(x: LedErrors) -> Self {
+        x.0
+    }
+}
+
+impl std::iter::FromIterator<AddrInfo> for LedErrors {
+    fn from_iter<U: IntoIterator<Item=AddrInfo>>(u: U) -> Self {
+        LedErrors(Vec::<AddrInfo>::from_iter(u))
+    }
+}
+
+impl std::iter::IntoIterator for LedErrors {
+    type Item = AddrInfo;
+    type IntoIter = std::vec::IntoIter<AddrInfo>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
+impl<'a> std::iter::IntoIterator for &'a LedErrors {
+    type Item = &'a AddrInfo;
+    type IntoIter = std::slice::Iter<'a, AddrInfo>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        (&self.0).into_iter()
+    }
+}
+
+impl<'a> std::iter::IntoIterator for &'a mut LedErrors {
+    type Item = &'a mut AddrInfo;
+    type IntoIter = std::slice::IterMut<'a, AddrInfo>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        (&mut self.0).into_iter()
+    }
+}
+
+impl std::ops::Deref for LedErrors {
+    type Target = Vec<AddrInfo>;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl std::ops::DerefMut for LedErrors {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+/// Converts the LedErrors value to the Query Parameters representation (style=form, explode=false)
+/// specified in https://swagger.io/docs/specification/serialization/
+/// Should be implemented in a serde serializer
+impl std::string::ToString for LedErrors {
+    fn to_string(&self) -> String {
+        self.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",").to_string()
+    }
+}
+
+/// Converts Query Parameters representation (style=form, explode=false) to a LedErrors value
+/// as specified in https://swagger.io/docs/specification/serialization/
+/// Should be implemented in a serde deserializer
+impl std::str::FromStr for LedErrors {
+    type Err = <AddrInfo as std::str::FromStr>::Err;
+
+    fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
+        let mut items = vec![];
+        for item in s.split(',')
+        {
+            items.push(item.parse()?);
+        }
+        std::result::Result::Ok(LedErrors(items))
+    }
+}
+
+
+
 /// LED number
 #[derive(Debug, Clone, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
@@ -1052,6 +1181,135 @@ impl std::str::FromStr for LedInfo {
             current: intermediate_rep.current.into_iter().next(),
             error: intermediate_rep.error.into_iter().next(),
         })
+    }
+}
+
+
+
+// Methods for converting between header::IntoHeaderValue<LedInfoArray> and hyper::header::HeaderValue
+
+#[cfg(any(feature = "client", feature = "server"))]
+impl std::convert::TryFrom<header::IntoHeaderValue<LedInfoArray>> for hyper::header::HeaderValue {
+    type Error = String;
+
+    fn try_from(hdr_value: header::IntoHeaderValue<LedInfoArray>) -> std::result::Result<Self, Self::Error> {
+        let hdr_value = hdr_value.to_string();
+        match hyper::header::HeaderValue::from_str(&hdr_value) {
+             std::result::Result::Ok(value) => std::result::Result::Ok(value),
+             std::result::Result::Err(e) => std::result::Result::Err(
+                 format!("Invalid header value for LedInfoArray - value: {} is invalid {}",
+                     hdr_value, e))
+        }
+    }
+}
+
+#[cfg(any(feature = "client", feature = "server"))]
+impl std::convert::TryFrom<hyper::header::HeaderValue> for header::IntoHeaderValue<LedInfoArray> {
+    type Error = String;
+
+    fn try_from(hdr_value: hyper::header::HeaderValue) -> std::result::Result<Self, Self::Error> {
+        match hdr_value.to_str() {
+             std::result::Result::Ok(value) => {
+                    match <LedInfoArray as std::str::FromStr>::from_str(value) {
+                        std::result::Result::Ok(value) => std::result::Result::Ok(header::IntoHeaderValue(value)),
+                        std::result::Result::Err(err) => std::result::Result::Err(
+                            format!("Unable to convert header value '{}' into LedInfoArray - {}",
+                                value, err))
+                    }
+             },
+             std::result::Result::Err(e) => std::result::Result::Err(
+                 format!("Unable to convert header: {:?} to string: {}",
+                     hdr_value, e))
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
+pub struct LedInfoArray(
+    Vec<LedInfo>
+);
+
+impl std::convert::From<Vec<LedInfo>> for LedInfoArray {
+    fn from(x: Vec<LedInfo>) -> Self {
+        LedInfoArray(x)
+    }
+}
+
+impl std::convert::From<LedInfoArray> for Vec<LedInfo> {
+    fn from(x: LedInfoArray) -> Self {
+        x.0
+    }
+}
+
+impl std::iter::FromIterator<LedInfo> for LedInfoArray {
+    fn from_iter<U: IntoIterator<Item=LedInfo>>(u: U) -> Self {
+        LedInfoArray(Vec::<LedInfo>::from_iter(u))
+    }
+}
+
+impl std::iter::IntoIterator for LedInfoArray {
+    type Item = LedInfo;
+    type IntoIter = std::vec::IntoIter<LedInfo>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
+impl<'a> std::iter::IntoIterator for &'a LedInfoArray {
+    type Item = &'a LedInfo;
+    type IntoIter = std::slice::Iter<'a, LedInfo>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        (&self.0).into_iter()
+    }
+}
+
+impl<'a> std::iter::IntoIterator for &'a mut LedInfoArray {
+    type Item = &'a mut LedInfo;
+    type IntoIter = std::slice::IterMut<'a, LedInfo>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        (&mut self.0).into_iter()
+    }
+}
+
+impl std::ops::Deref for LedInfoArray {
+    type Target = Vec<LedInfo>;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl std::ops::DerefMut for LedInfoArray {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+/// Converts the LedInfoArray value to the Query Parameters representation (style=form, explode=false)
+/// specified in https://swagger.io/docs/specification/serialization/
+/// Should be implemented in a serde serializer
+impl std::string::ToString for LedInfoArray {
+    fn to_string(&self) -> String {
+        self.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",").to_string()
+    }
+}
+
+/// Converts Query Parameters representation (style=form, explode=false) to a LedInfoArray value
+/// as specified in https://swagger.io/docs/specification/serialization/
+/// Should be implemented in a serde deserializer
+impl std::str::FromStr for LedInfoArray {
+    type Err = <LedInfo as std::str::FromStr>::Err;
+
+    fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
+        let mut items = vec![];
+        for item in s.split(',')
+        {
+            items.push(item.parse()?);
+        }
+        std::result::Result::Ok(LedInfoArray(items))
     }
 }
 
@@ -1434,64 +1692,3 @@ impl std::ops::DerefMut for Yaml {
 }
 
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-#[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
-pub struct LedInfoArray(Vec<LedInfo>);
-
-impl ::std::convert::From<Vec<LedInfo>> for LedInfoArray {
-    fn from(x: Vec<LedInfo>) -> Self {
-        LedInfoArray(x)
-    }
-}
-
-impl ::std::convert::From<LedInfoArray> for Vec<LedInfo> {
-    fn from(x: LedInfoArray) -> Self {
-        x.0
-    }
-}
-
-impl ::std::iter::FromIterator<LedInfo> for LedInfoArray {
-    fn from_iter<U: IntoIterator<Item=LedInfo>>(u: U) -> Self {
-        LedInfoArray(Vec::<LedInfo>::from_iter(u))
-    }
-}
-
-impl ::std::iter::IntoIterator for LedInfoArray {
-    type Item = LedInfo;
-    type IntoIter = ::std::vec::IntoIter<LedInfo>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.into_iter()
-    }
-}
-
-impl<'a> ::std::iter::IntoIterator for &'a LedInfoArray {
-    type Item = &'a LedInfo;
-    type IntoIter = ::std::slice::Iter<'a, LedInfo>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        (&self.0).into_iter()
-    }
-}
-
-impl<'a> ::std::iter::IntoIterator for &'a mut LedInfoArray {
-    type Item = &'a mut LedInfo;
-    type IntoIter = ::std::slice::IterMut<'a, LedInfo>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        (&mut self.0).into_iter()
-    }
-}
-
-impl ::std::ops::Deref for LedInfoArray {
-    type Target = Vec<LedInfo>;
-    fn deref(&self) -> &Self::Target {
-        &self.0
-    }
-}
-
-impl ::std::ops::DerefMut for LedInfoArray {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
-    }
-}

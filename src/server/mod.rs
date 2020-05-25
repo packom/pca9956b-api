@@ -4024,34 +4024,34 @@ where
                         match result {
                             Ok(body) => {
                                 let mut unused_elements = Vec::new();
-                                let param_led_info: Option<models::LedInfoArray> = if !body.is_empty() {
+                                let param_led_info_array: Option<models::LedInfoArray> = if !body.is_empty() {
                                     let deserializer = &mut serde_json::Deserializer::from_slice(&*body);
                                     match serde_ignored::deserialize(deserializer, |path| {
                                             warn!("Ignoring unknown field in body: {}", path);
                                             unused_elements.push(path.to_string());
                                     }) {
-                                        Ok(param_led_info) => param_led_info,
+                                        Ok(param_led_info_array) => param_led_info_array,
                                         Err(e) => return Box::new(future::ok(Response::builder()
                                                         .status(StatusCode::BAD_REQUEST)
-                                                        .body(Body::from(format!("Couldn't parse body parameter ledInfo - doesn't match schema: {}", e)))
-                                                        .expect("Unable to create Bad Request response for invalid body parameter ledInfo due to schema"))),
+                                                        .body(Body::from(format!("Couldn't parse body parameter LedInfoArray - doesn't match schema: {}", e)))
+                                                        .expect("Unable to create Bad Request response for invalid body parameter LedInfoArray due to schema"))),
                                     }
                                 } else {
                                     None
                                 };
-                                let param_led_info = match param_led_info {
-                                    Some(param_led_info) => param_led_info,
+                                let param_led_info_array = match param_led_info_array {
+                                    Some(param_led_info_array) => param_led_info_array,
                                     None => return Box::new(future::ok(Response::builder()
                                                         .status(StatusCode::BAD_REQUEST)
-                                                        .body(Body::from("Missing required body parameter ledInfo"))
-                                                        .expect("Unable to create Bad Request response for missing body parameter ledInfo"))),
+                                                        .body(Body::from("Missing required body parameter LedInfoArray"))
+                                                        .expect("Unable to create Bad Request response for missing body parameter LedInfoArray"))),
                                 };
 
                                 Box::new(
                                     api_impl.set_led_info_all(
                                             param_bus_id,
                                             param_addr,
-                                            param_led_info,
+                                            param_led_info_array,
                                         &context
                                     ).then(move |result| {
                                         let mut response = Response::new(Body::empty());
@@ -4110,8 +4110,8 @@ where
                             },
                             Err(e) => Box::new(future::ok(Response::builder()
                                                 .status(StatusCode::BAD_REQUEST)
-                                                .body(Body::from(format!("Couldn't read body parameter ledInfo: {}", e)))
-                                                .expect("Unable to create Bad Request response due to unable to read body parameter ledInfo"))),
+                                                .body(Body::from(format!("Couldn't read body parameter LedInfoArray: {}", e)))
+                                                .expect("Unable to create Bad Request response due to unable to read body parameter LedInfoArray"))),
                         }
                     })
                 ) as Self::Future

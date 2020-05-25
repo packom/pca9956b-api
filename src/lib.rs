@@ -139,7 +139,7 @@ pub enum GetErrorResponse {
 pub enum GetErrorsResponse {
     /// OK
     OK
-    (Vec<models::AddrInfo>)
+    (models::LedErrors)
     ,
     /// Bad Request
     BadRequest
@@ -235,7 +235,7 @@ pub enum GetLedInfoResponse {
 pub enum GetLedInfoAllResponse {
     /// OK
     OK
-    (Vec<models::LedInfo>)
+    (models::LedInfoArray)
     ,
     /// Bad Request
     BadRequest
@@ -830,7 +830,7 @@ pub trait Api<C> {
         &self,
         bus_id: i32,
         addr: i32,
-        led_info: models::LedInfoArray,
+        led_info_array: models::LedInfoArray,
         context: &C) -> Box<dyn Future<Item=SetLedInfoAllResponse, Error=ApiError> + Send>;
 
     fn set_led_pwm(
@@ -1096,7 +1096,7 @@ pub trait ApiNoContext {
         &self,
         bus_id: i32,
         addr: i32,
-        led_info: models::LedInfoArray,
+        led_info_array: models::LedInfoArray,
         ) -> Box<dyn Future<Item=SetLedInfoAllResponse, Error=ApiError> + Send>;
 
     fn set_led_pwm(
@@ -1469,10 +1469,10 @@ impl<'a, T: Api<C>, C> ApiNoContext for ContextWrapper<'a, T, C> {
         &self,
         bus_id: i32,
         addr: i32,
-        led_info: models::LedInfoArray,
+        led_info_array: models::LedInfoArray,
         ) -> Box<dyn Future<Item=SetLedInfoAllResponse, Error=ApiError> + Send>
     {
-        self.api().set_led_info_all(bus_id, addr, led_info, &self.context())
+        self.api().set_led_info_all(bus_id, addr, led_info_array, &self.context())
     }
 
     fn set_led_pwm(

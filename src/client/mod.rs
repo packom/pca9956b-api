@@ -1327,7 +1327,7 @@ impl<C, F> Api<C> for Client<F> where
                         str::from_utf8(&body)
                                              .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
                                              .and_then(|body|
-                                                 serde_json::from_str::<Vec<models::AddrInfo>>(body)
+                                                 serde_json::from_str::<models::LedErrors>(body)
                                                      .map_err(|e| e.into())
                                              )
                                  )
@@ -2095,7 +2095,7 @@ impl<C, F> Api<C> for Client<F> where
                         str::from_utf8(&body)
                                              .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
                                              .and_then(|body|
-                                                 serde_json::from_str::<Vec<models::LedInfo>>(body)
+                                                 serde_json::from_str::<models::LedInfoArray>(body)
                                                      .map_err(|e| e.into())
                                              )
                                  )
@@ -4255,7 +4255,7 @@ impl<C, F> Api<C> for Client<F> where
         &self,
         param_bus_id: i32,
         param_addr: i32,
-        param_led_info: models::LedInfoArray,
+        param_led_info_array: models::LedInfoArray,
         context: &C) -> Box<dyn Future<Item=SetLedInfoAllResponse, Error=ApiError> + Send>
     {
         let mut uri = format!(
@@ -4286,7 +4286,7 @@ impl<C, F> Api<C> for Client<F> where
                 Err(e) => return Box::new(future::err(ApiError(format!("Unable to create request: {}", e))))
         };
 
-        let body = serde_json::to_string(&param_led_info).expect("impossible to fail to serialize");
+        let body = serde_json::to_string(&param_led_info_array).expect("impossible to fail to serialize");
                 *request.body_mut() = Body::from(body);
 
         let header = "application/json";

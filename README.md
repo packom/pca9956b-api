@@ -24,7 +24,7 @@ To see how to make this your own, look here:
 [README]((https://openapi-generator.tech))
 
 - API version: 0.1.1
-- Build date: 2020-05-25T07:48:55.283126Z[Etc/UTC]
+- Build date: 2020-05-25T08:01:34.118318Z[Etc/UTC]
 
 
 
@@ -192,8 +192,10 @@ Method | HTTP request | Description
  - [Freq](docs/Freq.md)
  - [Group](docs/Group.md)
  - [LedError](docs/LedError.md)
+ - [LedErrors](docs/LedErrors.md)
  - [LedIndex](docs/LedIndex.md)
  - [LedInfo](docs/LedInfo.md)
+ - [LedInfoArray](docs/LedInfoArray.md)
  - [LedState](docs/LedState.md)
  - [Offset](docs/Offset.md)
  - [OpError](docs/OpError.md)

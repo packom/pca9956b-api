@@ -269,7 +269,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_errors**
-> Vec<models::AddrInfo> get_errors(bus_id, addr)
+> models::LedErrors get_errors(bus_id, addr)
 
 
 Gets error status for all LEDs
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Vec<models::AddrInfo>**](addrInfo.md)
+[**models::LedErrors**](ledErrors.md)
 
 ### Authorization
 
@@ -440,7 +440,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_led_info_all**
-> Vec<models::LedInfo> get_led_info_all(bus_id, addr)
+> models::LedInfoArray get_led_info_all(bus_id, addr)
 
 
 Gets properties for all LEDs
@@ -454,7 +454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Vec<models::LedInfo>**](ledInfo.md)
+[**models::LedInfoArray**](ledInfoArray.md)
 
 ### Authorization
 
@@ -959,7 +959,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_led_info_all**
-> set_led_info_all(bus_id, addr, led_info)
+> set_led_info_all(bus_id, addr, led_info_array)
 
 
 Sets properties for 1 or more LEDs
@@ -970,7 +970,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
   **bus_id** | **i32**| I2C bus the target PCA9956B is on, as returned by /i2c/buslist | 
   **addr** | **i32**| Device address to perform operation on (may be a sub or all call address) | 
-  **led_info** | [**ledInfo**](ledInfo.md)| Values to write | 
+  **led_info_array** | [**LedInfoArray**](LedInfoArray.md)| Values to write | 
 
 ### Return type
 

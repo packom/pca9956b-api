@@ -524,11 +524,11 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString>{
         &self,
         bus_id: i32,
         addr: i32,
-        led_info: models::LedInfoArray,
+        led_info_array: models::LedInfoArray,
         context: &C) -> Box<dyn Future<Item=SetLedInfoAllResponse, Error=ApiError> + Send>
     {
         let context = context.clone();
-        info!("set_led_info_all({}, {}, {:?}) - X-Span-ID: {:?}", bus_id, addr, led_info, context.get().0.clone());
+        info!("set_led_info_all({}, {}, {:?}) - X-Span-ID: {:?}", bus_id, addr, led_info_array, context.get().0.clone());
         Box::new(future::err("Generic failure".into()))
     }
 

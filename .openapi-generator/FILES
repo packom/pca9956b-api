@@ -16,8 +16,10 @@ docs/Error.md
 docs/Freq.md
 docs/Group.md
 docs/LedError.md
+docs/LedErrors.md
 docs/LedIndex.md
 docs/LedInfo.md
+docs/LedInfoArray.md
 docs/LedState.md
 docs/Offset.md
 docs/OpError.md
