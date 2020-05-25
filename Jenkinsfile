@@ -10,7 +10,7 @@ pipeline {
                     sh '''
                         cd ~/builds && \
                         git clone https://packom:$PASSWORD@github.com/packom/pca9956b-api && \
-                        java -jar ~/openapi-generator/modules/openapi-generator-cli/target/openapi-generator-cli.jar generate -i ./pca9956b-api/api/openapi.yaml -g rust-server -o ./pca9956b-api
+                        java -jar ~/openapi-generator/modules/openapi-generator-cli/target/openapi-generator-cli.jar generate --generate-alias-as-model -i ./pca9956b-api/api/openapi.yaml -g rust-server -o ./pca9956b-api
                         cd pca9956b-api && \
                         echo "# pca9956b-api
 
@@ -40,68 +40,7 @@ categories = [\\"api-bindings\\",\\"hardware-support\\",\\"network-programming\\
 " > /tmp/Cargo.toml && \
                         tail -n +9 ./Cargo.toml >> /tmp/Cargo.toml && \
                         cp /tmp/Cargo.toml ./ && \
-                        find examples -name *.rs -print0 | xargs -0 sed -i 's/openapi_client/pca9956b_api/' && \
-                        echo """#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-#[cfg_attr(feature = \\"conversion\\", derive(frunk::LabelledGeneric))]
-pub struct LedInfoArray(Vec<LedInfo>);
-
-impl ::std::convert::From<Vec<LedInfo>> for LedInfoArray {
-    fn from(x: Vec<LedInfo>) -> Self {
-        LedInfoArray(x)
-    }
-}
-
-impl ::std::convert::From<LedInfoArray> for Vec<LedInfo> {
-    fn from(x: LedInfoArray) -> Self {
-        x.0
-    }
-}
-
-impl ::std::iter::FromIterator<LedInfo> for LedInfoArray {
-    fn from_iter<U: IntoIterator<Item=LedInfo>>(u: U) -> Self {
-        LedInfoArray(Vec::<LedInfo>::from_iter(u))
-    }
-}
-
-impl ::std::iter::IntoIterator for LedInfoArray {
-    type Item = LedInfo;
-    type IntoIter = ::std::vec::IntoIter<LedInfo>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.into_iter()
-    }
-}
-
-impl<'a> ::std::iter::IntoIterator for &'a LedInfoArray {
-    type Item = &'a LedInfo;
-    type IntoIter = ::std::slice::Iter<'a, LedInfo>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        (&self.0).into_iter()
-    }
-}
-
-impl<'a> ::std::iter::IntoIterator for &'a mut LedInfoArray {
-    type Item = &'a mut LedInfo;
-    type IntoIter = ::std::slice::IterMut<'a, LedInfo>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        (&mut self.0).into_iter()
-    }
-}
-
-impl ::std::ops::Deref for LedInfoArray {
-    type Target = Vec<LedInfo>;
-    fn deref(&self) -> &Self::Target {
-        &self.0
-    }
-}
-
-impl ::std::ops::DerefMut for LedInfoArray {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
-    }
-}""" >> src/models.rs
+                        find examples -name *.rs -print0 | xargs -0 sed -i 's/openapi_client/pca9956b_api/'
                     '''
                 }
             }
