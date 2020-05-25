@@ -10,13 +10,13 @@ paths:
       description: Returns this API specification
       operationId: get_api
       responses:
-        200:
+        "200":
           content:
             text/x-yaml:
               schema:
                 $ref: '#/components/schemas/yaml'
           description: OK
-        404:
+        "404":
           content:
             text/plain:
               schema:
@@ -24,7 +24,9 @@ paths:
           description: File not found
   /pca9956b/{busId}/reset:
     post:
-      description: Initiated a software reset. Resets all devices that response to the PCA9956B SWRST procedure on the I2C bus. Note that the device may take up to 1ms to reset
+      description: Initiated a software reset. Resets all devices that response to
+        the PCA9956B SWRST procedure on the I2C bus. Note that the device may take
+        up to 1ms to reset
       operationId: reset
       parameters:
       - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
@@ -36,15 +38,15 @@ paths:
           $ref: '#/components/schemas/busId'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -63,7 +65,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -72,19 +75,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/config'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -102,7 +105,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -118,15 +122,15 @@ paths:
         description: Values to write
         required: true
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -145,7 +149,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -162,15 +167,15 @@ paths:
           $ref: '#/components/schemas/sleep'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -189,7 +194,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -198,19 +204,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/sleep'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -218,7 +224,8 @@ paths:
           description: Operation Failed
   /pca9956b/{busId}/{addr}/offset/{offset}:
     post:
-      description: Sets the offset value.  Offset to use between offset times for consecutive LEDs.  Specified offset in clock cycles (125ns).
+      description: Sets the offset value.  Offset to use between offset times for
+        consecutive LEDs.  Specified offset in clock cycles (125ns).
       operationId: set_offset
       parameters:
       - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
@@ -229,7 +236,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -246,15 +254,15 @@ paths:
           $ref: '#/components/schemas/offset'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -273,7 +281,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -282,19 +291,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/offset'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -302,7 +311,9 @@ paths:
           description: Operation Failed
   /pca9956b/{busId}/{addr}/pwm/{pwm}:
     post:
-      description: Sets the PWM value using the PWMALL register.  When in group dim mode this is overlaid over the per LED PWM value for all LEDs.  When in group blink mode this specifies the blink duty cycle (with frequency affecting period)
+      description: Sets the PWM value using the PWMALL register.  When in group dim
+        mode this is overlaid over the per LED PWM value for all LEDs.  When in group
+        blink mode this specifies the blink duty cycle (with frequency affecting period)
       operationId: set_pwm
       parameters:
       - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
@@ -313,7 +324,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -330,15 +342,15 @@ paths:
           $ref: '#/components/schemas/pwm'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -357,7 +369,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -366,19 +379,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/pwm'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -386,7 +399,8 @@ paths:
           description: Operation Failed
   /pca9956b/{busId}/{addr}/current/{current}:
     post:
-      description: Sets the current value using the IREFALL register.  When this register is written all per LED current values are set to this value
+      description: Sets the current value using the IREFALL register.  When this register
+        is written all per LED current values are set to this value
       operationId: set_current
       parameters:
       - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
@@ -397,7 +411,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -414,15 +429,15 @@ paths:
           $ref: '#/components/schemas/current'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -441,7 +456,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -450,19 +466,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/current'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -470,7 +486,8 @@ paths:
           description: Operation Failed
   /pca9956b/{busId}/{addr}/freq/{freq}:
     post:
-      description: Sets the GRPFRQ value.  When in blink mode, affects blink period (with global pwm value affecting duty cycle), otherwise unused
+      description: Sets the GRPFRQ value.  When in blink mode, affects blink period
+        (with global pwm value affecting duty cycle), otherwise unused
       operationId: set_freq
       parameters:
       - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
@@ -481,7 +498,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -498,15 +516,15 @@ paths:
           $ref: '#/components/schemas/freq'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -525,7 +543,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -534,19 +553,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/freq'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -565,7 +584,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -582,15 +602,15 @@ paths:
           $ref: '#/components/schemas/group'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -609,7 +629,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -618,19 +639,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/group'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -649,7 +670,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -666,15 +688,15 @@ paths:
           $ref: '#/components/schemas/outputChange'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -693,7 +715,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -702,19 +725,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/outputChange'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -733,7 +756,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -742,19 +766,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/overTemp'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -773,7 +797,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -782,19 +807,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -813,7 +838,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -822,15 +848,15 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -849,7 +875,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -858,19 +885,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ledErrors'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -889,7 +916,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -914,15 +942,15 @@ paths:
           $ref: '#/components/schemas/addrEnabled'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -941,7 +969,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -958,19 +987,19 @@ paths:
           $ref: '#/components/schemas/addrIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/addrEnabled'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -978,7 +1007,8 @@ paths:
           description: Operation Failed
   /pca9956b/{busId}/{addr}/addr/{num}/addr/{addrVal}:
     post:
-      description: Sets whether this address value - note that all call address can only be set when it is enabled
+      description: Sets whether this address value - note that all call address can
+        only be set when it is enabled
       operationId: set_addr_value
       parameters:
       - description: I2C bus the target PCA9956B is on, as returned by /i2c/buslist
@@ -989,7 +1019,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1014,15 +1045,15 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1041,7 +1072,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1058,19 +1090,19 @@ paths:
           $ref: '#/components/schemas/addrIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/addr'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1089,7 +1121,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1106,19 +1139,19 @@ paths:
           $ref: '#/components/schemas/addrIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/addrInfo'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1137,7 +1170,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1146,19 +1180,19 @@ paths:
           $ref: '#/components/schemas/addr'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ledInfoArray'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1176,7 +1210,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1192,15 +1227,15 @@ paths:
         description: Values to write
         required: true
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1219,7 +1254,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1236,19 +1272,19 @@ paths:
           $ref: '#/components/schemas/ledIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ledInfo'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1266,7 +1302,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1290,15 +1327,15 @@ paths:
         description: Values to write
         required: true
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1317,7 +1354,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1342,15 +1380,15 @@ paths:
           $ref: '#/components/schemas/ledState'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1369,7 +1407,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1386,19 +1425,19 @@ paths:
           $ref: '#/components/schemas/ledIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ledState'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1417,7 +1456,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1442,15 +1482,15 @@ paths:
           $ref: '#/components/schemas/pwm'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1469,7 +1509,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1486,19 +1527,19 @@ paths:
           $ref: '#/components/schemas/ledIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/pwm'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1517,7 +1558,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1542,15 +1584,15 @@ paths:
           $ref: '#/components/schemas/current'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1569,7 +1611,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1586,19 +1629,19 @@ paths:
           $ref: '#/components/schemas/ledIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/current'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1617,7 +1660,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1642,15 +1686,15 @@ paths:
           $ref: '#/components/schemas/ledError'
         style: simple
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1669,7 +1713,8 @@ paths:
         schema:
           $ref: '#/components/schemas/busId'
         style: simple
-      - description: Device address to perform operation on (may be a sub or all call address)
+      - description: Device address to perform operation on (may be a sub or all call
+          address)
         explode: false
         in: path
         name: addr
@@ -1686,19 +1731,19 @@ paths:
           $ref: '#/components/schemas/ledIndex'
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ledError'
           description: OK
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/badRequest'
           description: Bad Request
-        502:
+        "502":
           content:
             application/json:
               schema:
@@ -1716,7 +1761,8 @@ components:
           description: Error description
           type: string
     opError:
-      description: Operation as a whole failed.  It is possible that part of the operation succeeded so the device may be left in a bad state.  A reset may be in order
+      description: Operation as a whole failed.  It is possible that part of the operation
+        succeeded so the device may be left in a bad state.  A reset may be in order
       properties:
         error:
           description: Error description
@@ -1738,7 +1784,8 @@ components:
           enabled: true
       properties:
         sleep:
-          description: whether sleep is enabled (oscillator not running when sleep is enabled, and it takes >= 500us to bring the device out of sleep)
+          description: whether sleep is enabled (oscillator not running when sleep
+            is enabled, and it takes >= 500us to bring the device out of sleep)
           type: boolean
         group:
           $ref: '#/components/schemas/group'
@@ -1757,7 +1804,8 @@ components:
           minimum: 0
           type: integer
         offset:
-          description: offset value, number of (125ns) clock cycles between on times of consecutive LEDs
+          description: offset value, number of (125ns) clock cycles between on times
+            of consecutive LEDs
           format: int32
           maximum: 11
           minimum: 0
@@ -1850,7 +1898,8 @@ components:
       description: Whether there is an over-temperature error
       type: boolean
     sleep:
-      description: whether sleep is enabled (oscillator not running when sleep is enabled, and it takes >= 500us to bring the device out of sleep)
+      description: whether sleep is enabled (oscillator not running when sleep is
+        enabled, and it takes >= 500us to bring the device out of sleep)
       type: boolean
     group:
       description: whether config pwm/freq values control dimming or blinking
@@ -1877,7 +1926,8 @@ components:
       minimum: 0
       type: integer
     offset:
-      description: offset value, number of (125ns) clock cycles between on times of consecutive LEDs
+      description: offset value, number of (125ns) clock cycles between on times of
+        consecutive LEDs
       format: int32
       maximum: 11
       minimum: 0
