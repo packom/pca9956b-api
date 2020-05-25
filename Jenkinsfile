@@ -30,7 +30,7 @@ pipeline {
                     NEWV=$(cat /tmp/new_version) && \
                     echo "# pca9956b-api
 
-pca9956b-api is an HTTP RESTful API designed to control a PCA9956B IC bus.  This repo includes:
+pca9956b-api is an HTTP RESTful API designed to control a PCA9956B IC.  This repo includes:
 - An [API specification](https://github.com/packom/pca9956b-api/blob/master/api/openapi.yaml) in [OpenAPI format](https://github.com/OAI/OpenAPI-Specification/).
 - Skeleton client and server implementations in [Rust](https://www.rust-lang.org/).
 
