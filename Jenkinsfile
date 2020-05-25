@@ -1,7 +1,7 @@
 // https://www.jenkins.io/doc/book/pipeline/docker/
-old_version = ''
-new_version = ''
-diff_size = ''
+def old_version = ''
+def new_version = ''
+def diff_size = ''
 pipeline {
     agent {
         docker { image 'piersfinlayson/openapi-gen-amd64:0.0.1' }
