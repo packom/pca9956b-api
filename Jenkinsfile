@@ -42,7 +42,7 @@ categories = [\\"api-bindings\\",\\"hardware-support\\",\\"network-programming\\
                         cp /tmp/Cargo.toml ./ && \
                         find examples -name *.rs -print0 | xargs -0 sed -i 's/openapi_client/pca9956b_api/' && \
                         echo """#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-#[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
+#[cfg_attr(feature = \\"conversion\\", derive(frunk::LabelledGeneric))]
 pub struct LedInfoArray(Vec<LedInfo>);
 
 impl ::std::convert::From<Vec<LedInfo>> for LedInfoArray {
